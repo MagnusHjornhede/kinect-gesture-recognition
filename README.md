@@ -1,11 +1,47 @@
+# Kinect Gesture Recognition
+
+Gesture classification using skeleton tracking data from a **Microsoft Kinect sensor**.
+
+The project explores how classical machine learning models perform on **high-dimensional skeleton-based gesture features**, and investigates how preprocessing techniques such as **PCA** affect model performance.
+
+---
+
+# Pipeline
+
+skeleton tracking → feature extraction → preprocessing → ML classifier → evaluation
+
+---
+
+# Dataset
+
+Kinect skeletal tracking data.
+
+- 20 joints tracked per frame
+- 242 numeric features derived from skeleton coordinates and motion attributes
+- Labels:
+  - gesture name (categorical)
+  - gesture ID (numeric)
+
+Data format:
+
+- CSV files without headers
+- Headers added in code as `feature_1 ... feature_242`
+
+Preprocessing:
+
+- Missing values imputed using column means
+- Z-score standardization applied to all features
+
+The dataset contains **multiple gesture classes**, with some class imbalance between training and test sets.
+
+
 ------------------------------------------------------------
 
-Kinect Gesture ML Experiments — Experimental Stages 1–3
+# Experiment Overview
 
-------------------------------------------------------------
+This repository contains a series of **machine learning experiments on Kinect skeleton gesture data**.
 
-This repository contains reports for a series of **experiments on Kinect skeleton gesture data**.
-Each stage builds upon the same dataset (242 skeleton-derived numeric features + labels) and explores:  
+The experiments are organized in **three stages**, each stage builds upon the same dataset (242 skeleton-derived numeric features + labels) and explores:  
 
 - Stage 1: preprocessing, missing-data handling, exploratory analysis  
 - Stage 2: training and evaluation of multiple baseline ML models  
@@ -95,5 +131,10 @@ From these experiments we conclude:
 2. PCA shifts the advantage toward linear models by compressing feature space and reducing redundancy.
 3. No single model dominates in all conditions — the best choice depends on preprocessing strategy.
 4. For practical applications: RandomForest / ExtraTrees are reliable defaults, while SVM-linear + PCA is a strong alternative when interpretability and simplicity are important.
+   
 
+Recommended defaults:
+
+- **RandomForest / ExtraTrees** for raw feature pipelines
+- **Linear SVM + PCA** when dimensionality reduction is desired
 ------------------------------------------------------------
